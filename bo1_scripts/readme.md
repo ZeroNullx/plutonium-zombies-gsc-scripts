@@ -6,8 +6,7 @@ Place them in your T5 scripts folder and they will load automatically when the m
 ---
 
 `zm_aim_melee_bonus_points.gsc`  
-Gives players bonus points when aiming and meleeing on specific rounds.  
-Round 1 = 1000 pts, Round 5 = 1500 pts, Round 13 = 2500 pts, Round 18 = 5000 pts.
+Adds hidden bonus points triggered by aim + melee. Used to test perk limits.
 
 `zm_health_zcount.gsc`  
 Shows zombie health and remaining count each round for testing or balancing.
@@ -16,4 +15,5 @@ Shows zombie health and remaining count each round for testing or balancing.
 Removes the 4-perk limit so all perks can be collected.
 
 `zm_secret_points.gsc`  
-Adds hidden bonus points triggered by aim + melee. Used to test perk limits.
+Gives players bonus points when aiming and meleeing on specific rounds.  
+Round 1 = 1000 pts, Round 5 = 1500 pts, Round 13 = 2500 pts, Round 18 = 5000 pts.

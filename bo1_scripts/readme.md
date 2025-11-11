@@ -1,7 +1,7 @@
 # Black Ops 1 (T5) Zombies Scripts
 
 These scripts are made for Black Ops 1 using RektT5 or similar loaders.  
-Place them in your T5 scripts folder and they will load automatically when the map starts.
+Place them in your T5 scripts `Plutonium/storage/t5/scripts/sp/zom/` folder and they will load automatically when the map starts.
 
 ---
 

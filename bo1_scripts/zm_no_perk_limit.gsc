@@ -1,7 +1,7 @@
 // ============================================================
 // BO1 Zombies — Reliable No Perk Limit (T5 Safe)
 // ============================================================
-// File: scripts/zm/zm_no_perk_limit.gsc
+// File: Plutonium/storage/t5/scripts/sp/zom/zm_no_perk_limit.gsc
 // ============================================================
 
 init()

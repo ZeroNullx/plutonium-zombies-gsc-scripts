@@ -1,5 +1,5 @@
 /*
-    .info, .discord, and .site command system for Plutonium T6 Zombies
+    .info, .help, .list, .commands, .discord, and .site command system for Plutonium T6 Zombies
     Author: ZeroNullx
     Includes color styling, independent prefixes, and timed section spacing
 */
@@ -16,8 +16,8 @@ hook_chat_info(message, mode)
 {
     message = toLower(message);
 
-    // .info — main help command
-    if (message == ".info")
+    // Aliases for info/help list
+    if (message == ".info" || message == ".help" || message == ".list" || message == ".commands")
     {
         afk_prefix   = "[^6MAfk^7]";
         bank_prefix  = "[^2BANK^7]";
@@ -40,7 +40,7 @@ hook_chat_info(message, mode)
         // Server info section
         info_lines = [];
         info_lines[0] = info_prefix + " ^5Server Commands:";
-        info_lines[1] = "^3.info^7 - Display this help list again";
+        info_lines[1] = "^3.info^7 / ^3.help^7 / ^3.list^7 / ^3.commands^7 - Display this list";
         info_lines[2] = "^3.discord^7 - Join our Discord community";
         info_lines[3] = "^3.site^7 - Visit our website";
 

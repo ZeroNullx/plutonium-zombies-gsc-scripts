@@ -16,4 +16,4 @@ Shows zombie health and remaining count each round for testing or balancing.
 Removes the 4-perk limit so all perks can be collected.
 
 `zm_secret_points.gsc`  
-Adds hidden bonus points triggered by specific events or actions.
+Adds hidden bonus points triggered by aim + melee. Used to test perk limits.

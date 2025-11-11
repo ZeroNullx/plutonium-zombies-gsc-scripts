@@ -37,6 +37,15 @@ These scripts are designed for:
 
 ## Authors and Credits
 Created by **ZeroNullx**  
+Assisted by ChatGPT  
 Website: [0nx.dev](https://0nx.dev)  
 Discord: [Join The Network](https://discord.gg/thenet)
 
+---
+
+## Useful External Links
+- [T6 Mods Workshop (0Nom4D)](https://github.com/0Nom4D/T6_Mods_Workshop/tree/master)  
+- [T6 Zombies Universal Bank (JezuzLizard)](https://github.com/JezuzLizard/T6-ZM-Universal-Bank)  
+- [Plutonium Forum – BO1 Modding Resources](https://forum.plutonium.pw/category/60/bo1-modding-releases-resources)  
+- [Plutonium Forum – BO2 Modding Resources](https://forum.plutonium.pw/category/23/bo2-modding-releases-resources)  
+- [Megathread: BO1 Mods, Releases, Tutorials & Guides](https://forum.plutonium.pw/topic/34555/megathread-organized-collection-of-bo1-mods-releases-tutorials-and-guides)

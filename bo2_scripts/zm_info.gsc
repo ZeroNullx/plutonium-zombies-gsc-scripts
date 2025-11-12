@@ -10,6 +10,33 @@
 init()
 {
     onPlayerSay(::hook_chat_info);
+    level thread onPlayerConnect_hud();
+}
+
+onPlayerConnect_hud()
+{
+    for (;;)
+    {
+        level waittill("connected", player);
+        player thread show_info_hint_hud();
+    }
+}
+
+show_info_hint_hud()
+{
+    hud = createFontString("objective", 2);
+    hud setPoint("CENTER", "TOP", 0, 40);
+    hud.alpha = 0;
+    hud setText("^5Tip:^7 Use ^3.info^7 to display available commands");
+    hud fadeOverTime(0.5);
+    hud.alpha = 1;
+
+    wait 7; // display duration
+
+    hud fadeOverTime(1);
+    hud.alpha = 0;
+    wait 1;
+    hud destroy();
 }
 
 hook_chat_info(message, mode)
@@ -41,10 +68,9 @@ hook_chat_info(message, mode)
         info_lines = [];
         info_lines[0] = info_prefix + " ^5Server Commands:";
         info_lines[1] = "^3.info^7 / ^3.help^7 / ^3.list^7 / ^3.commands^7 - Display this list";
-        info_lines[2] = "^3.discord^7 - Join our Discord community";
+        info_lines[2] = "^3.discord^7 - Join the Discord community";
         info_lines[3] = "^3.site^7 - Visit our website";
 
-        // Chat version (preferred if utils loaded)
         if (isDefined(self.tell))
         {
             foreach(line in afk_lines) { self tell(line); wait 0.5; }
@@ -57,7 +83,6 @@ hook_chat_info(message, mode)
         }
         else
         {
-            // HUD fallback version
             hud = createFontString("objective", 2);
             hud setPoint("CENTER", "TOP", 0, 50);
             hud setText(info_prefix + " ^5Available Commands:");

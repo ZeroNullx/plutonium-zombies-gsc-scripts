@@ -1,72 +1,33 @@
 // ============================================================
 // BO1 Zombies — Reliable No Perk Limit (T5 Safe)
 // ============================================================
-// File: Plutonium/storage/t5/scripts/sp/zom/zm_no_perk_limit.gsc
+// PLACE SCRIPT INTO: Plutonium/storage/t5/scripts/sp/zom/zm_no_perk_limit.gsc
+// REQUIRES: Plutonium/storage/t5/maps/_zombiemode_perks.gsc
 // ============================================================
 
 init()
 {
-    level thread perk_limit_global_enforce();
-    level thread perk_limit_on_connect();
+	thread onPlayerConnect();
 }
 
-// ------------------------------------------------------------
-// GLOBAL LEVEL ENFORCER — Keeps global limit unlocked
-// ------------------------------------------------------------
-perk_limit_global_enforce()
+onPlayerConnect()
 {
-    while ( !isDefined(level.perk_purchase_limit) )
-        wait 0.05;
+	for(;;)
+	{
+		level waittill ("connecting", player);
 
-    level.perk_purchase_limit = 99;
-
-    while (1)
-    {
-        if (!isDefined(level.perk_purchase_limit) || level.perk_purchase_limit < 99)
-            level.perk_purchase_limit = 99;
-        wait 1;
-    }
+		player thread onPlayerSpawned();
+	}
 }
 
-// ------------------------------------------------------------
-// PLAYER HANDLER — Watches each player connection/spawn
-// ------------------------------------------------------------
-perk_limit_on_connect()
+onPlayerSpawned()
 {
-    while (1)
-    {
-        level waittill("connected", player);
-        player thread perk_limit_player_lifecycle();
-    }
+	for(;;)
+	{
+		self waittill("spawned_player");
+
+		self.num_perks = -5; //Remove perk limit, must be a negative number
+
+	}
 }
 
-// ------------------------------------------------------------
-// PLAYER LOOP — Handles respawns and re-applies limit
-// ------------------------------------------------------------
-perk_limit_player_lifecycle()
-{
-    self endon("disconnect");
-
-    while (1)
-    {
-        self waittill("spawned_player");
-
-        // ensure defined and high limit
-        if (!isDefined(self.perk_purchase_limit) || self.perk_purchase_limit < 99)
-            self.perk_purchase_limit = 99;
-
-        // confirmation message once per spawn
-        self iprintlnbold("^2No Perk Limit Active");
-
-        // monitor and re-assert during play
-        while (isAlive(self))
-        {
-            if (!isDefined(self.perk_purchase_limit) || self.perk_purchase_limit < 99)
-                self.perk_purchase_limit = 99;
-            wait 1;
-        }
-
-        // safety wait before respawn loop restarts
-        wait 0.5;
-    }
-}

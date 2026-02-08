@@ -7,7 +7,6 @@
 /*
     Mod: Zombies Counter (Bottom Center + Glow)
     Developed by Cabcon, tweaked by ZeroNullx
-    Repositioned and styled by ChatGPT (Bottom-Center HUD)
 */
 
 init()
@@ -19,7 +18,6 @@ init_ZombiesCounter()
 {
     zombiesCounter = createServerFontString("objective", 1.4);
 
-    // Manual bottom-center anchor (works in server HUD)
     zombiesCounter.alignX = "center";
     zombiesCounter.alignY = "bottom";
     zombiesCounter.horzAlign = "center";
@@ -29,7 +27,6 @@ init_ZombiesCounter()
 
     zombiesCounter.hideWhenInMenu = 1;
     zombiesCounter.archived = 0;
-
 
     zombiesCounter.foreground = 1;
     zombiesCounter.glowColor = (0, 0, 0);
@@ -53,18 +50,18 @@ ZC_HideOnEndGame(zombiesCounter)
 ZC_Monitor(zombiesCounter)
 {
     level endon("end_game");
-    oldZombiesCount = 0;
+    oldRemaining = -1;
 
     while (true)
     {
-        zombiesCount = get_current_zombie_count();
+        remaining = get_zombies_remaining_to_kill();
 
-        if (zombiesCount > 0)
+        if (remaining >= 0)
         {
-            if (oldZombiesCount != zombiesCount)
+            if (oldRemaining != remaining)
             {
-                oldZombiesCount = zombiesCount;
-                zombiesCounter setText("^7Zombies: ^1" + zombiesCount);
+                oldRemaining = remaining;
+                zombiesCounter setText("^7Zombies Remaining: ^1" + remaining);
             }
         }
         else
@@ -73,25 +70,30 @@ ZC_Monitor(zombiesCounter)
             wait 0.2;
             zombiesCounter affectElement("alpha", 0.5, 1);
             zombiesCounter setText("^3Loading...");
-
-            ZC_WaitZombiesRespawn();
-
-            zombiesCounter affectElement("alpha", 0.2, 0);
-            wait 0.2;
-            zombiesCounter setText("^7Zombies: ^1" + get_current_zombie_count());
-            zombiesCounter affectElement("alpha", 0.5, 1);
         }
 
         wait 0.5;
     }
 }
 
-ZC_WaitZombiesRespawn()
+/*
+    BO2 Zombies Remaining:
+      remaining = alive + left_to_spawn
+
+    - Spawning: alive++, left_to_spawn-- => remaining stays the same
+    - Killing:  alive--, left_to_spawn unchanged => remaining goes down
+*/
+get_zombies_remaining_to_kill()
 {
-    while (get_current_zombie_count() == 0)
-    {
-        wait 0.05;
-    }
+    // left_to_spawn is the BO2 round spawner's remaining count
+    if (!isDefined(level.zombie_total))
+        return -1;
+
+    aliveArr = get_round_enemy_array();
+    if (!isDefined(aliveArr))
+        return -1;
+
+    return aliveArr.size + level.zombie_total;
 }
 
 affectElement(type, time, value)
